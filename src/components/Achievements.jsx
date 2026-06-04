@@ -1,104 +1,84 @@
+import { useReveal } from '../hooks/useReveal';
+import { SectionHeader } from './SectionHeader';
+
 const achievements = [
   {
     title: 'Top 50 Teams — Smart India Hackathon',
-    detail: 'Competed nationally in SIH 2024, reaching Top 50 out of thousands of teams across India. Built the Disaster Preparedness & Education Platform, showcasing teamwork, rapid prototyping, and problem-solving under pressure.',
-    accent: '#f59e0b',
-    badge: 'National Level',
+    badge: 'National Level', isAccent: true,
+    detail: 'Competed in SIH 2024, one of India\'s largest national hackathons, and reached the Top 50 teams out of thousands of entries across the country. Our team built the Disaster Preparedness & Education Platform — a full-stack React and Unity application that showcased rapid prototyping, strong teamwork, and the ability to deliver a polished product under intense time pressure.',
   },
   {
     title: '7th Place — DATATHON 24-Hour Hackathon',
-    detail: 'Secured 7th position in a high-intensity 24-hour data hackathon. Worked on real-world datasets, applied analytical thinking, and presented insights within strict time limits.',
-    accent: '#f59e0b',
-    badge: 'Hackathon',
+    badge: 'Hackathon', isAccent: true,
+    detail: 'Secured 7th position in a high-intensity 24-hour data hackathon that challenged participants to extract meaningful insights from complex, real-world datasets. The experience pushed my ability to think analytically under pressure, work with unfamiliar data quickly, and present findings in a clear and compelling way within a strict time limit.',
   },
   {
     title: '85+ Problems Solved on LeetCode',
-    detail: 'Consistently solving algorithmic problems on LeetCode across arrays, strings, dynamic programming, trees, and graphs — strengthening DSA fundamentals for interviews.',
-    accent: '#3b82f6',
-    badge: 'DSA',
+    badge: 'DSA', isAccent: false,
+    detail: 'Consistently practicing algorithmic problem solving on LeetCode across arrays, strings, dynamic programming, trees, graphs, and binary search. This regular practice strengthens my DSA fundamentals and builds the problem-solving intuition needed for technical interviews at product companies.',
   },
   {
     title: '55+ Problems Solved on CodeChef',
-    detail: 'Active competitive programmer on CodeChef with regular participation in contests. Solved problems spanning number theory, greedy algorithms, and implementation challenges.',
-    accent: '#3b82f6',
-    badge: 'CP',
+    badge: 'Competitive Programming', isAccent: false,
+    detail: 'Active participant in CodeChef contests and long challenges. I have solved problems spanning number theory, greedy algorithms, implementation, and combinatorics — building competitive programming habits that translate directly into faster and cleaner code in real projects.',
   },
 ];
 
 const certifications = [
-  {
-    name: 'Java Programming',
-    issuers: 'Oracle & HackerRank',
-    desc: 'Certified in core Java concepts including OOP, collections, exception handling, and multithreading — validated by both Oracle and HackerRank.',
-    accent: '#f59e0b',
-  },
-  {
-    name: 'Python Programming',
-    issuers: 'Infosys Springboard & HackerRank',
-    desc: 'Dual certification in Python covering data types, control flow, functions, file handling, and basic scripting through Infosys Springboard and HackerRank.',
-    accent: '#3b82f6',
-  },
-  {
-    name: 'MySQL Intermediate',
-    issuers: 'HackerRank',
-    desc: 'Certified in intermediate SQL — complex queries, joins, subqueries, aggregation, and database design through HackerRank structured assessment.',
-    accent: '#f59e0b',
-  },
-  {
-    name: 'C++ Programming',
-    issuers: 'Simplilearn',
-    desc: 'Completed C++ course covering memory management, pointers, STL, templates, and object-oriented programming fundamentals.',
-    accent: '#3b82f6',
-  },
-  {
-    name: 'AI Tools & Applications',
-    issuers: 'IEEE CIS',
-    desc: 'Certified by IEEE Computational Intelligence Society on practical AI tools, industry applications, and responsible use of AI in engineering.',
-    accent: '#f59e0b',
-  },
+  { name: 'Java Programming', issuers: 'Oracle & HackerRank', desc: 'OOP, collections, exception handling, and multithreading validated by Oracle and HackerRank.', isAccent: true },
+  { name: 'Python Programming', issuers: 'Infosys Springboard & HackerRank', desc: 'Data types, control flow, functions, and scripting. Dual-certified by Infosys Springboard and HackerRank.', isAccent: false },
+  { name: 'MySQL Intermediate', issuers: 'HackerRank', desc: 'Complex queries, joins, subqueries, aggregation, and database design through HackerRank assessment.', isAccent: true },
+  { name: 'C++ Programming', issuers: 'Simplilearn', desc: 'Memory management, pointers, STL, templates, and OOP fundamentals — Simplilearn certified.', isAccent: false },
+  { name: 'AI Tools & Applications', issuers: 'IEEE CIS', desc: 'Practical AI tools, industry applications, and responsible AI in engineering — IEEE CIS certified.', isAccent: true },
 ];
 
 export default function Achievements() {
+  const achRef = useReveal();
+  const certRef = useReveal();
+
   return (
-    <section id="achievements" className="py-14 border-t border-[#2a2218]">
+    <section id="achievements" className="py-14" style={{ borderTop: '1px solid var(--border)' }}>
       <div className="max-w-6xl mx-auto px-6">
-        <div className="flex items-center gap-3 mb-2">
-          <span className="w-6 h-px bg-[#f59e0b]"></span>
-          <p className="text-[#f59e0b] text-xs font-bold tracking-[0.2em] uppercase">Recognition</p>
-        </div>
-        <h3 className="text-3xl md:text-4xl font-black text-white tracking-tight mb-3">Achievements &amp; Certifications</h3>
-        <p className="text-[#8a7a65] text-base mb-8 max-w-2xl">
-          Validated through national hackathons, competitive programming platforms, and industry-recognized certification programs.
-        </p>
+        <SectionHeader label="Recognition" title="Achievements & Certifications"
+          subtitle="Validated through national hackathons, competitive programming platforms, and industry certification programs." />
 
-        <div className="mb-10">
-          <p className="text-[#f59e0b] text-xs font-black uppercase tracking-widest mb-4">Achievements</p>
-          <div className="grid md:grid-cols-2 gap-4">
-            {achievements.map(({ title, detail, accent, badge }) => (
-              <div key={title} className="bg-[#1a1612] border border-[#2a2218] p-5 hover:border-[#f59e0b]/30 transition-colors"
-                style={{ borderLeftColor: accent, borderLeftWidth: '3px' }}>
-                <div className="flex items-start justify-between gap-3 mb-2">
-                  <p className="text-white font-bold text-base leading-snug">{title}</p>
-                  <span className="text-xs font-black px-2 py-0.5 shrink-0 uppercase tracking-widest"
-                    style={{ color: accent, background: `${accent}15`, border: `1px solid ${accent}30` }}>{badge}</span>
+        {/* Achievements - 2 col large cards */}
+        <div ref={achRef} className="reveal grid md:grid-cols-2 gap-5 mb-8">
+          {achievements.map(({ title, badge, isAccent, detail }, i) => {
+            const achColors = ['var(--accent)', 'var(--accent4)', 'var(--accent3)', 'var(--accent2)'];
+            const color = achColors[i % achColors.length];
+            return (
+              <div key={title} className="p-6 card-hover"
+                style={{ backgroundColor: 'var(--bg-card)', border: '1px solid var(--border)',
+                  borderTop: `3px solid ${color}`, transitionDelay: `${i * 0.08}s` }}>
+                <div className="flex items-start justify-between gap-3 mb-3">
+                  <h4 className="font-bold text-lg leading-snug" style={{ color: 'var(--text-head)' }}>{title}</h4>
+                  <span className="text-xs font-bold px-2 py-1 shrink-0 uppercase tracking-widest"
+                    style={{ color, backgroundColor: color + '15', border: `1px solid ${color}30` }}>{badge}</span>
                 </div>
-                <p className="text-[#7a6e5e] text-sm leading-relaxed">{detail}</p>
+                <p className="text-sm leading-[1.85]" style={{ color: 'var(--text-mute)' }}>{detail}</p>
               </div>
-            ))}
-          </div>
+            );
+          })}
         </div>
 
-        <div>
-          <p className="text-[#3b82f6] text-xs font-black uppercase tracking-widest mb-4">Certifications</p>
-          <div className="grid md:grid-cols-2 gap-4">
-            {certifications.map(({ name, issuers, desc, accent }) => (
-              <div key={name} className="bg-[#1a1612] border border-[#2a2218] p-5 hover:border-[#3b82f6]/30 transition-colors"
-                style={{ borderLeftColor: accent, borderLeftWidth: '3px' }}>
-                <p className="text-white font-bold text-base mb-1">{name}</p>
-                <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: accent }}>{issuers}</p>
-                <p className="text-[#7a6e5e] text-sm leading-relaxed">{desc}</p>
-              </div>
-            ))}
+        {/* Certifications - 3 col compact cards */}
+        <div ref={certRef} className="reveal">
+          <p className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: 'var(--accent2)' }}>Certifications</p>
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+            {certifications.map(({ name, issuers, desc, isAccent }, i) => {
+              const certColors = ['var(--accent3)', 'var(--accent2)', 'var(--accent4)', 'var(--accent)', 'var(--accent3)'];
+              const color = certColors[i % certColors.length];
+              return (
+                <div key={name} className="p-5 card-hover"
+                  style={{ backgroundColor: 'var(--bg-card)', border: '1px solid var(--border)',
+                    borderLeft: `3px solid ${color}`, transitionDelay: `${i * 0.07}s` }}>
+                  <p className="font-bold text-base mb-1" style={{ color: 'var(--text-head)' }}>{name}</p>
+                  <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color }}>{issuers}</p>
+                  <p className="text-sm leading-relaxed" style={{ color: 'var(--text-mute)' }}>{desc}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

@@ -1,118 +1,95 @@
+import { useReveal } from '../hooks/useReveal';
+import { SectionHeader } from './SectionHeader';
+
 const projects = [
   {
     title: 'Disaster Preparedness & Education Platform',
-    tag: 'EdTech · SIH Project',
-    accent: '#f59e0b',
-    overview: 'A comprehensive digital platform designed to educate students and staff on disaster awareness, safety protocols, and emergency response. Built as part of the Smart India Hackathon submission that reached the Top 50 nationally.',
-    details: [
-      'Gamified learning modules to engage students in disaster safety education',
-      'Real-time alert system to notify users during emergency situations',
-      'Multilingual support enabling access for diverse regional communities',
-      'Interactive quizzes and scenario-based simulations using Unity game engine',
-      'Admin dashboard for school staff to monitor student progress and alerts',
-      'Mobile-responsive React frontend with smooth navigation and accessibility',
-    ],
+    tag: 'EdTech · SIH Project', isAccent: true, num: '01',
+    overview: 'A comprehensive digital platform built for the Smart India Hackathon that reached Top 50 nationally. Educates students and staff on disaster awareness, safety protocols, and emergency response through an engaging interactive experience.',
+    description: 'The platform combines gamified learning modules with real-time alert systems and multilingual support to ensure accessibility across diverse communities. Scenario-based simulations built with Unity let users experience emergency situations safely, while an admin dashboard gives school staff full visibility into student progress. The React frontend was built with accessibility and mobile-responsiveness as first-class concerns throughout.',
     role: 'Full Stack Developer & UI Lead',
     tech: ['React', 'Unity', 'JavaScript', 'CSS3', 'REST API'],
     status: 'Completed',
   },
   {
     title: 'EduBridge AI',
-    tag: 'AI / ML · Multimodal Assistant',
-    accent: '#3b82f6',
-    overview: 'A multimodal AI-powered educational assistant designed for early childhood learners. Combines OCR, speech recognition, document question-answering, and role-based AI responses to create an adaptive learning environment.',
-    details: [
-      'OCR pipeline with EasyOCR to extract and process text from images and PDFs',
-      'Speech-to-text transcription using OpenAI Whisper for voice-based input',
-      'Document QA system built with LangChain and Pinecone vector database',
-      'Local LLM inference using Ollama for privacy-preserving AI responses',
-      'Role-based response system — separate modes for students, teachers, and parents',
-      'Streamlit frontend for rapid prototyping and clean user interaction',
-      'Context-aware prompting strategies using LangChain chains and agents',
-    ],
+    tag: 'AI / ML · Multimodal Assistant', isAccent: false, num: '02',
+    overview: 'A multimodal AI-powered educational assistant for early childhood learners, combining cutting-edge AI technologies into a single cohesive platform for adaptive learning.',
+    description: 'EduBridge AI integrates an OCR pipeline using EasyOCR for extracting text from images and PDFs, speech-to-text via OpenAI Whisper, and a document QA system built on LangChain with Pinecone as the vector store. Local LLM inference runs through Ollama, keeping responses private and fast. The system features role-based AI modes tailored separately for students, teachers, and parents — each receiving contextually appropriate responses through a clean Streamlit interface.',
     role: 'AI Engineer & Backend Developer',
     tech: ['Ollama', 'LangChain', 'Pinecone', 'Whisper', 'EasyOCR', 'Streamlit', 'Python'],
     status: 'Completed',
   },
   {
     title: 'MovieMate',
-    tag: 'Full Stack · MERN',
-    accent: '#f59e0b',
-    overview: 'A full-stack movie discovery and recommendation web application developed during the Bytes Lab MERN internship. Users can browse, search, and get personalized movie suggestions powered by a Node.js backend and MongoDB database.',
-    details: [
-      'User authentication with JWT-based secure login and registration',
-      'Movie search and filter functionality by genre, rating, and release year',
-      'Recommendation engine suggesting movies based on user watch history',
-      'RESTful APIs built with Express.js for all CRUD operations',
-      'MongoDB Atlas integration for cloud-hosted movie and user data storage',
-      'Responsive React frontend with clean card-based UI for movie listings',
-      'Axios-based API integration connecting frontend and backend seamlessly',
-    ],
+    tag: 'Full Stack · MERN', isAccent: true, num: '03',
+    overview: 'A full-stack movie discovery and recommendation web application developed during the Bytes Lab MERN internship, demonstrating end-to-end product development skills.',
+    description: 'MovieMate lets users browse, search, and receive personalized movie suggestions based on their watch history. The backend exposes a clean REST API built with Express.js and Node.js for all CRUD operations, while MongoDB Atlas handles storage through well-designed Mongoose schemas. JWT tokens provide secure stateless authentication. The React frontend connects via Axios, delivering a responsive movie browsing experience with smooth filtering by genre, rating, and release year.',
     role: 'Full Stack Developer (Intern)',
     tech: ['MongoDB', 'Express.js', 'React', 'Node.js', 'JWT', 'Axios', 'CSS3'],
-    status: 'Completed · Internship Project',
+    status: 'Completed · Internship',
   },
 ];
 
 export default function Projects() {
+  const r1 = useReveal(), r2 = useReveal(), r3 = useReveal();
+  const refs = [r1, r2, r3];
+
   return (
-    <section id="projects" className="py-14 border-t border-[#2a2218]">
+    <section id="projects" className="py-14" style={{ borderTop: '1px solid var(--border)' }}>
       <div className="max-w-6xl mx-auto px-6">
-        <div className="flex items-center gap-3 mb-2">
-          <span className="w-6 h-px bg-[#f59e0b]"></span>
-          <p className="text-[#f59e0b] text-xs font-bold tracking-[0.2em] uppercase">Projects</p>
-        </div>
-        <h3 className="text-3xl md:text-4xl font-black text-white tracking-tight mb-3">What I've Built</h3>
-        <p className="text-[#8a7a65] text-base mb-8 max-w-2xl">
-          Projects built across hackathons, internships, and personal initiatives — covering AI systems, full-stack apps, and EdTech platforms.
-        </p>
+        <SectionHeader label="Projects" title="What I've Built"
+          subtitle="Across hackathons, internships, and personal initiatives — AI systems, full-stack apps, and EdTech platforms." />
 
-        <div className="grid md:grid-cols-2 gap-6">
-          {projects.map(({ title, tag, accent, overview, details, role, tech, status }) => (
-            <div key={title}
-              className="bg-[#1a1612] border border-[#2a2218] hover:border-[#f59e0b]/40 transition-colors flex flex-col"
-              style={{ borderTopColor: accent, borderTopWidth: '3px' }}>
+        <div className="space-y-6">
+          {projects.map(({ title, tag, isAccent, num, overview, description, role, tech, status }, i) => {
+            const colors = ['var(--accent)', 'var(--accent3)', 'var(--accent4)'];
+            const color = colors[i % colors.length];
+            return (
+              <div key={title} ref={refs[i]} className="reveal card-hover"
+                style={{ backgroundColor: 'var(--bg-card)', border: '1px solid var(--border)', borderLeft: `4px solid ${color}` }}>
 
-              {/* Card Header */}
-              <div className="p-6 border-b border-[#2a2218]">
-                <div className="flex items-start justify-between gap-3 mb-3">
-                  <span className="text-xs font-black uppercase tracking-widest" style={{ color: accent }}>{tag}</span>
-                  <span className="text-xs font-bold border px-2 py-0.5 uppercase tracking-widest shrink-0"
-                    style={{ color: accent, borderColor: `${accent}40`, background: `${accent}12` }}>{status}</span>
+                {/* Header */}
+                <div className="px-7 pt-6 pb-5" style={{ borderBottom: '1px solid var(--border)' }}>
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                    <div className="flex items-start gap-5">
+                      <span className="text-5xl font-black leading-none select-none hidden sm:block"
+                        style={{ color, opacity: 0.15 }}>{num}</span>
+                      <div>
+                        <span className="text-xs font-bold uppercase tracking-widest block mb-1" style={{ color }}>{tag}</span>
+                        <h4 className="font-black text-2xl md:text-3xl leading-tight tracking-tight mb-1"
+                          style={{ color: 'var(--text-head)' }}>{title}</h4>
+                        <p className="text-xs font-semibold uppercase tracking-widest" style={{ color: 'var(--text-mute)' }}>{role}</p>
+                      </div>
+                    </div>
+                    <span className="text-xs font-semibold border px-3 py-1 uppercase tracking-wider self-start shrink-0"
+                      style={{ color, borderColor: color + '50', backgroundColor: color + '10' }}>{status}</span>
+                  </div>
                 </div>
-                {/* BIG title */}
-                <h4 className="text-white font-black text-3xl md:text-4xl leading-tight mb-2 tracking-tight">{title}</h4>
-                <p className="text-[#5a5040] text-xs font-bold uppercase tracking-widest">{role}</p>
-              </div>
 
-              {/* Overview */}
-              <div className="px-6 pt-4 pb-3">
-                <p className="text-[#a09880] text-sm leading-relaxed">{overview}</p>
-              </div>
+                {/* Two-col body */}
+                <div className="grid md:grid-cols-5">
+                  <div className="md:col-span-2 px-7 py-6" style={{ borderRight: '1px solid var(--border)' }}>
+                    <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color }}>Overview</p>
+                    <p className="text-base leading-relaxed" style={{ color: 'var(--text-body)' }}>{overview}</p>
+                  </div>
+                  <div className="md:col-span-3 px-7 py-6">
+                    <p className="text-xs font-bold uppercase tracking-widest mb-3"
+                      style={{ color: isAccent ? 'var(--accent2)' : 'var(--accent)' }}>How It Works</p>
+                    <p className="text-sm leading-[1.9]" style={{ color: 'var(--text-mute)' }}>{description}</p>
+                  </div>
+                </div>
 
-              {/* Features — small text, 1-col list */}
-              <div className="px-6 pb-4 flex-1">
-                <p className="text-xs font-black uppercase tracking-widest mb-3" style={{ color: accent === '#f59e0b' ? '#3b82f6' : '#f59e0b' }}>
-                  Key Features
-                </p>
-                <ul className="space-y-1.5">
-                  {details.map(d => (
-                    <li key={d} className="flex items-start gap-2">
-                      <span className="text-xs font-black mt-0.5 shrink-0" style={{ color: accent }}>→</span>
-                      <span className="text-xs text-[#7a6a55] leading-relaxed">{d}</span>
-                    </li>
+                {/* Tech */}
+                <div className="px-7 py-4 flex flex-wrap gap-2" style={{ borderTop: '1px solid var(--border)' }}>
+                  {tech.map(t => (
+                    <span key={t} className="text-xs font-semibold px-3 py-1"
+                      style={{ color: 'var(--text-body)', backgroundColor: 'var(--bg-hover)', border: '1px solid var(--border)' }}>{t}</span>
                   ))}
-                </ul>
+                </div>
               </div>
-
-              {/* Tech stack */}
-              <div className="px-6 py-4 border-t border-[#2a2218] flex flex-wrap gap-2">
-                {tech.map(t => (
-                  <span key={t} className="text-xs font-bold text-[#a09880] bg-[#211d17] px-3 py-1 border border-[#2e2820]">{t}</span>
-                ))}
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

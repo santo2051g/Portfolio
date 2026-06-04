@@ -1,70 +1,65 @@
+import { useReveal } from '../hooks/useReveal';
+import { SectionHeader } from './SectionHeader';
+
 const skillGroups = [
   {
-    category: 'Programming Languages',
-    color: 'text-[#f59e0b]',
-    accent: '#f59e0b',
-    desc: 'Strong foundation in multiple languages for systems, web, and AI development.',
+    category: 'Programming Languages', isAccent: true,
+    desc: 'My foundation in programming spans C, C++, Python, Java, and MySQL. These languages cover everything from systems-level memory management and OOP to scripting, data processing, and relational database queries — giving me flexibility across different problem domains.',
     skills: ['C', 'C++', 'Python', 'Java', 'MySQL'],
   },
   {
-    category: 'Core CS Concepts',
-    color: 'text-[#3b82f6]',
-    accent: '#3b82f6',
-    desc: 'Solid grasp of algorithmic thinking and object-oriented design patterns.',
-    skills: ['Data Structures', 'Algorithms', 'OOP', 'Problem Solving', 'System Design Basics'],
+    category: 'Core CS Concepts', isAccent: false,
+    desc: 'A strong grasp of Data Structures, Algorithms, and Object-Oriented Programming forms the backbone of how I approach problems. These fundamentals drive my competitive programming practice and inform how I architect clean, efficient solutions in every project.',
+    skills: ['Data Structures', 'Algorithms', 'OOP', 'Problem Solving', 'System Design'],
   },
   {
-    category: 'Web Technologies',
-    color: 'text-[#f59e0b]',
-    accent: '#f59e0b',
-    desc: 'Full-stack development experience from UI to backend APIs and databases.',
+    category: 'Web Technologies', isAccent: true,
+    desc: 'Full-stack development experience from pixel-perfect UI to scalable backend APIs and databases. I work across the entire MERN stack — building React frontends, Node.js/Express.js APIs, and MongoDB data layers — delivering complete, production-ready web applications.',
     skills: ['HTML5', 'CSS3', 'JavaScript', 'React.js', 'Node.js', 'Express.js', 'MongoDB', 'REST APIs'],
   },
   {
-    category: 'AI / ML Stack',
-    color: 'text-[#3b82f6]',
-    accent: '#3b82f6',
-    desc: 'Hands-on experience building multimodal AI systems and intelligent pipelines.',
+    category: 'AI / ML Stack', isAccent: false,
+    desc: 'Hands-on experience building multimodal AI pipelines using LangChain, Ollama, and Pinecone. I have worked with Whisper for speech recognition, EasyOCR for document parsing, and Streamlit for rapid AI app interfaces — all applied in real projects like EduBridge AI.',
     skills: ['LangChain', 'Ollama', 'Pinecone', 'Whisper', 'EasyOCR', 'Streamlit', 'Prompt Engineering'],
   },
   {
-    category: 'Tools & Platforms',
-    color: 'text-[#f59e0b]',
-    accent: '#f59e0b',
-    desc: 'Proficient with modern developer tooling, design, and collaboration platforms.',
+    category: 'Tools & Platforms', isAccent: true,
+    desc: 'Proficient with the full developer toolchain — VS Code for development, Git and GitHub for version control and collaboration, Figma and Canva for design and prototyping, Unity for game-based simulations, and Postman for API testing and debugging.',
     skills: ['VS Code', 'GitHub', 'Git', 'Figma', 'Canva', 'Unity', 'Postman'],
   },
 ];
 
 export default function Skills() {
-  return (
-    <section id="skills" className="py-14 border-t border-[#2a2218]">
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="flex items-center gap-3 mb-2">
-          <span className="w-6 h-px bg-[#f59e0b]"></span>
-          <p className="text-[#f59e0b] text-xs font-bold tracking-[0.2em] uppercase">Skills</p>
-        </div>
-        <h3 className="text-3xl md:text-4xl font-black text-white tracking-tight mb-3">What I Work With</h3>
-        <p className="text-[#7a6e5e] text-base mb-8 max-w-2xl">
-          A curated stack built through coursework, projects, internships, and self-learning — covering everything from low-level programming to AI pipelines.
-        </p>
+  const gridRef = useReveal();
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {skillGroups.map(({ category, color, accent, desc, skills }) => (
-            <div key={category} className="bg-[#1a1612] border border-[#2a2218] p-5 hover:border-[#f59e0b]/40 transition-colors"
-              style={{ borderTopColor: accent, borderTopWidth: '2px' }}>
-              <p className={`${color} text-xs font-black uppercase tracking-widest mb-1`}>{category}</p>
-              <p className="text-[#5a5040] text-xs mb-4 leading-relaxed">{desc}</p>
-              <div className="flex flex-wrap gap-2">
-                {skills.map(skill => (
-                  <span key={skill}
-                    className="text-sm text-[#e2d9cc] bg-[#211d17] border border-[#2e2820] px-3 py-1 font-medium hover:border-[#f59e0b]/60 hover:text-[#f59e0b] transition-colors">
-                    {skill}
-                  </span>
-                ))}
+  const colors = ['var(--accent)', 'var(--accent3)', 'var(--accent2)', 'var(--accent4)', 'var(--accent3)'];
+
+  return (
+    <section id="skills" className="py-14" style={{ borderTop: '1px solid var(--border)' }}>
+      <div className="max-w-6xl mx-auto px-6">
+        <SectionHeader label="Skills" title="What I Work With"
+          subtitle="A curated stack built through coursework, projects, internships, and self-learning — from low-level programming to AI pipelines." />
+
+        <div ref={gridRef} className="reveal grid md:grid-cols-2 gap-5">
+          {skillGroups.map(({ category, isAccent, desc, skills }, i) => {
+            const color = colors[i % colors.length];
+            return (
+              <div key={category} className="p-6 card-hover"
+                style={{ backgroundColor: 'var(--bg-card)', border: '1px solid var(--border)',
+                  borderTop: `3px solid ${color}`, transitionDelay: `${i * 0.07}s` }}>
+                <p className="text-xs font-black uppercase tracking-widest mb-3" style={{ color }}>{category}</p>
+                <p className="text-sm leading-relaxed mb-5" style={{ color: 'var(--text-body)' }}>{desc}</p>
+                <div className="flex flex-wrap gap-2">
+                  {skills.map(skill => (
+                    <span key={skill} className="skill-tag text-sm px-3 py-1.5 font-medium cursor-default"
+                      style={{ color: 'var(--text-body)', backgroundColor: 'var(--bg-hover)', border: '1px solid var(--border)' }}>
+                      {skill}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

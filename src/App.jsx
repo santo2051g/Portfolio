@@ -1,3 +1,4 @@
+import { ThemeProvider, useTheme } from './context/ThemeContext';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -9,9 +10,10 @@ import CodingProfiles from './components/CodingProfiles';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 
-export default function App() {
+function Layout() {
+  const { dark } = useTheme();
   return (
-    <div className="min-h-screen bg-[#0a0a0a]">
+    <div className={`min-h-screen ${dark ? 'theme-dark' : 'theme-light'}`}>
       <Navbar />
       <main>
         <Hero />
@@ -25,5 +27,13 @@ export default function App() {
       </main>
       <Footer />
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <ThemeProvider>
+      <Layout />
+    </ThemeProvider>
   );
 }
